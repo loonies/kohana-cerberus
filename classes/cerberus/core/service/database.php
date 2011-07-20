@@ -35,6 +35,11 @@ class Cerberus_Core_Service_Database implements Cerberus_Service {
 	protected $_key = NULL;
 
 	/**
+	 * @var  string  User's identity
+	 */
+	protected $_identity = NULL;
+
+	/**
 	 * @var  string  Password
 	 */
 	protected $_password = NULL;
@@ -53,7 +58,7 @@ class Cerberus_Core_Service_Database implements Cerberus_Service {
 		// Set key
 		$this->_key = $config['key'];
 
-		if ( ! isset($config['algorithm']))
+		if (isset($config['algorithm']))
 		{
 			// Set hashing algorithm
 			$this->_algorithm = $config['algorithm'];
@@ -108,7 +113,7 @@ class Cerberus_Core_Service_Database implements Cerberus_Service {
 		}
 
 		// Get the password hash
-		$password = $this->hash($data[$this->_columns['password']]);
+		$password = $this->hash($this->_password);
 
 		if ($password !== $data[$this->_columns['password']])
 		{
