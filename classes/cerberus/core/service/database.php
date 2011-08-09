@@ -12,6 +12,11 @@
 class Cerberus_Core_Service_Database implements Cerberus_Service {
 
 	/**
+	 * @var  mixed  Database query object
+	 */
+	protected $_query = NULL;
+
+	/**
 	 * @var  string  Database table name
 	 */
 	protected $_table = 'user';
@@ -48,9 +53,10 @@ class Cerberus_Core_Service_Database implements Cerberus_Service {
 	 * Constructor
 	 *
 	 * @param   array   Configuration
-	 * @return  Cerberus_Service_Database
+	 * @param   Database_Query_Builder_Select
+	 * @return  void
 	 */
-	public function __construct(array $config)
+	public function __construct(array $config, Database_Query_Builder_Select $query = NULL)
 	{
 		if ( ! isset($config['key']))
 			throw new Kohana_Exception('A valid secret key must be set in config');
@@ -75,6 +81,15 @@ class Cerberus_Core_Service_Database implements Cerberus_Service {
 			// Overload column names
 			$this->_columns = $config['columns'];
 		}
+
+		if ($query === NULL)
+		{
+			// Use default query builder
+			$query = new Database_Query_Builder_Select;
+		}
+
+		// Set a query object
+		$this->_query = $query;
 	}
 
 	/**
@@ -94,18 +109,29 @@ class Cerberus_Core_Service_Database implements Cerberus_Service {
 	}
 
 	/**
+	 * Returns data from executed query
+	 *
+	 * @return  array
+	 */
+	protected function query()
+	{
+		return $this->_query
+			->select($this->_columns['identity'], $this->_columns['password'])
+			->from($this->_table)
+			->where($this->_columns['identity'], '=', $this->_identity)
+			->limit(1)
+			->execute()
+			->current();
+	}
+
+	/**
 	 * Implements [Cerberus_Service::authenticate]
 	 *
 	 * @return  Cerberus_Result
 	 */
 	public function authenticate()
 	{
-		$data = DB::select($this->_columns['identity'], $this->_columns['password'])
-			->from($this->_table)
-			->where($this->_columns['identity'], '=', $this->_identity)
-			->limit(1)
-			->execute()
-			->current();
+		$data = $this->query();
 
 		if ($data === FALSE)
 		{
