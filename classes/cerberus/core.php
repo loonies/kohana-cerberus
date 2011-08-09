@@ -8,7 +8,7 @@
  * @author     Miodrag Tokić <mtokic@gmail.com>
  * @copyright  (c) 2011, Miodrag Tokić
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @license    New BSD License
  */
 class Cerberus_Core {
 
