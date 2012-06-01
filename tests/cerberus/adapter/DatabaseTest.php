@@ -20,6 +20,11 @@ class Cerberus_Adapter_DatabaseTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_Cerberus_Database_implements_Cerberus_Adapter()
 	{
+		if ( ! class_exists('Database_Query_Builder_Select'))
+		{
+			$this->markTestSkipped('Database module not enabled');
+		}
+
 		$adapter = new Cerberus_Adapter_Database(array('key' => 'foo'));
 
 		$this->assertInstanceOf('Cerberus_Adapter', $adapter);
@@ -32,6 +37,11 @@ class Cerberus_Adapter_DatabaseTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_identity_and_password_are_NULL_before_set()
 	{
+		if ( ! class_exists('Database_Query_Builder_Select'))
+		{
+			$this->markTestSkipped('Database module not enabled');
+		}
+
 		$adapter = new Cerberus_Adapter_Database(array('key' => 'foo'));
 
 		$this->assertAttributeSame(NULL, '_identity', $adapter);
@@ -102,6 +112,11 @@ class Cerberus_Adapter_DatabaseTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_constructor_uses_settings_from_config($config, $expected)
 	{
+		if ( ! class_exists('Database_Query_Builder_Select'))
+		{
+			$this->markTestSkipped('Database module not enabled');
+		}
+
 		$adapter = new Cerberus_Adapter_Database($config);
 
 		foreach ($expected as $key => $value)
@@ -128,6 +143,11 @@ class Cerberus_Adapter_DatabaseTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_constructor_sets_Database_Query_Builder_Select_if_non_passed()
 	{
+		if ( ! class_exists('Database_Query_Builder_Select'))
+		{
+			$this->markTestSkipped('Database module not enabled');
+		}
+
 		$adapter = new Cerberus_Adapter_Database(array('key' => 'foo'));
 
 		$this->assertAttributeInstanceOf('Database_Query_Builder_Select', '_query', $adapter);
@@ -140,6 +160,11 @@ class Cerberus_Adapter_DatabaseTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_constructor_sets_Database_Query_Builder_Select_if_passed()
 	{
+		if ( ! class_exists('Database_Query_Builder_Select'))
+		{
+			$this->markTestSkipped('Database module not enabled');
+		}
+
 		$adapter = new Cerberus_Adapter_Database(array('key' => 'foo'), new Database_Query_Builder_Select);
 
 		$this->assertAttributeInstanceOf('Database_Query_Builder_Select', '_query', $adapter);
@@ -263,6 +288,11 @@ class Cerberus_Adapter_DatabaseTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_hash_with_specified_algorithm()
 	{
+		if ( ! class_exists('Database_Query_Builder_Select'))
+		{
+			$this->markTestSkipped('Database module not enabled');
+		}
+
 		$pass = 'guessme';
 		$algo = 'md5';
 		$key  = 'top-secret';
