@@ -13,19 +13,19 @@
 class Cerberus_Core {
 
 	/**
-	 * @var  Cerberus_Session
+	 * @var  Cerberus_Storage
 	 */
-	protected $_session = NULL;
+	protected $_storage = NULL;
 
 	/**
 	 * Creates a new Cerberus instance
 	 *
-	 * @param   Cerberus_Session
+	 * @param   Cerberus_Storage
 	 * @return  void
 	 */
-	public function __construct(Cerberus_Session $session)
+	public function __construct(Cerberus_Storage $storage)
 	{
-		$this->_session = $session;
+		$this->_storage = $storage;
 	}
 
 	/**
@@ -39,43 +39,43 @@ class Cerberus_Core {
 	{
 		$result = $service->authenticate();
 
-		$this->_session->clear();
+		$this->_storage->clear();
 
 		if ( ! $result->is_valid())
 			throw new Cerberus_Exception($result);
 
-		$this->_session->write($result->identity());
+		$this->_storage->write($result->identity());
 
 		return $result;
 	}
 
 	/**
-	 * Returns the identity from session
+	 * Returns the identity from storage
 	 *
 	 * @return  mixed
 	 */
 	public function identity()
 	{
-		return $this->_session->read();
+		return $this->_storage->read();
 	}
 
 	/**
-	 * Checks if session is valid
+	 * Checks if storage is valid
 	 *
 	 * @return  bool
 	 */
 	public function is_valid()
 	{
-		return ! $this->_session->is_empty();
+		return ! $this->_storage->is_empty();
 	}
 
 	/**
-	 * Clears session
+	 * Clears storage
 	 *
 	 * @return  void
 	 */
 	public function clear()
 	{
-		$this->_session->clear();
+		$this->_storage->clear();
 	}
 }

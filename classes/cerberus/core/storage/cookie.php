@@ -4,12 +4,12 @@
  * authentication component to Kohana
  *
  * @package    Cerberus
- * @category   Session
+ * @category   Storage
  * @author     Miodrag Tokić <mtokic@gmail.com>
  * @copyright  (c) 2011, Miodrag Tokić
  * @license    New BSD License
  */
-class Cerberus_Core_Session_Cookie implements Cerberus_Session {
+class Cerberus_Core_Storage_Cookie implements Cerberus_Storage {
 
 	/**
 	 * @var  string
@@ -27,7 +27,7 @@ class Cerberus_Core_Session_Cookie implements Cerberus_Session {
 	protected $_lifetime = Date::WEEK;
 
 	/**
-	 * Creates a new Cerberus_Session_Cookie instance
+	 * Creates a new Cerberus_Storage_Cookie instance
 	 *
 	 * @param   array   Configuration
 	 * @return  void
@@ -46,7 +46,7 @@ class Cerberus_Core_Session_Cookie implements Cerberus_Session {
 	}
 
 	/**
-	 * Implements [Cerberus_Session::is_empty]
+	 * Implements [Cerberus_Storage::is_empty]
 	 *
 	 * @return  bool
 	 */
@@ -56,7 +56,7 @@ class Cerberus_Core_Session_Cookie implements Cerberus_Session {
 	}
 
 	/**
-	 * Implements [Cerberus_Session::read]
+	 * Implements [Cerberus_Storage::read]
 	 *
 	 * @return  string
 	 */
@@ -71,7 +71,7 @@ class Cerberus_Core_Session_Cookie implements Cerberus_Session {
 	}
 
 	/**
-	 * Implements [Cerberus_Session::write]
+	 * Implements [Cerberus_Storage::write]
 	 *
 	 * @param   string
 	 * @return  void
@@ -84,7 +84,7 @@ class Cerberus_Core_Session_Cookie implements Cerberus_Session {
 	}
 
 	/**
-	 * Implements [Cerberus_Session::clear]
+	 * Implements [Cerberus_Storage::clear]
 	 *
 	 * @return  void
 	 */

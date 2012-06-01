@@ -18,13 +18,13 @@ class Cerberus_Base_CerberusTest extends PHPUnit_Framework_TestCase {
 	 *
 	 * @return  void
 	 */
-	public function test_constructor_gets_session()
+	public function test_constructor_gets_storage()
 	{
-		$session = $this->getMock('Cerberus_Session');
+		$storage = $this->getMock('Cerberus_Storage');
 
-		$cerberus = new Cerberus($session);
+		$cerberus = new Cerberus($storage);
 
-		$this->assertAttributeInstanceOf('Cerberus_Session', '_session', $cerberus);
+		$this->assertAttributeInstanceOf('Cerberus_Storage', '_storage', $cerberus);
 	}
 
 	/**
@@ -42,9 +42,9 @@ class Cerberus_Base_CerberusTest extends PHPUnit_Framework_TestCase {
 			->method('authenticate')
 			->will($this->returnValue(new Cerberus_Result(Cerberus_Result::FAILURE_GENERAL, 'itsnotme')));
 
-		$session = $this->getMock('Cerberus_Session');
+		$storage = $this->getMock('Cerberus_Storage');
 
-		$cerberus = new Cerberus($session);
+		$cerberus = new Cerberus($storage);
 
 		$cerberus->authenticate($service);
 	}
@@ -54,7 +54,7 @@ class Cerberus_Base_CerberusTest extends PHPUnit_Framework_TestCase {
 	 *
 	 * @return  void
 	 */
-	public function test_successful_authentication_writes_to_session()
+	public function test_successful_authentication_writes_to_storage()
 	{
 		$service = $this->getMock('Cerberus_Service');
 
@@ -63,13 +63,13 @@ class Cerberus_Base_CerberusTest extends PHPUnit_Framework_TestCase {
 			->method('authenticate')
 			->will($this->returnValue(new Cerberus_Result(Cerberus_Result::SUCCESS, 'itsme')));
 
-		$session = $this->getMock('Cerberus_Session');
+		$storage = $this->getMock('Cerberus_Storage');
 
-		$session
+		$storage
 			->expects($this->once())
 			->method('write');
 
-		$cerberus = new Cerberus($session);
+		$cerberus = new Cerberus($storage);
 
 		$cerberus->authenticate($service);
 	}
@@ -88,9 +88,9 @@ class Cerberus_Base_CerberusTest extends PHPUnit_Framework_TestCase {
 			->method('authenticate')
 			->will($this->returnValue(new Cerberus_Result(Cerberus_Result::SUCCESS, 'itsme')));
 
-		$session = $this->getMock('Cerberus_Session');
+		$storage = $this->getMock('Cerberus_Storage');
 
-		$cerbeus = new Cerberus($session);
+		$cerbeus = new Cerberus($storage);
 
 		$this->assertInstanceOf('Cerberus_Result', $cerbeus->authenticate($service));
 	}
@@ -100,16 +100,16 @@ class Cerberus_Base_CerberusTest extends PHPUnit_Framework_TestCase {
 	 *
 	 * @return  void
 	 */
-	public function test_is_not_valid_when_session_empty()
+	public function test_is_not_valid_when_storage_empty()
 	{
-		$session = $this->getMock('Cerberus_Session');
+		$storage = $this->getMock('Cerberus_Storage');
 
-		$session
+		$storage
 			->expects($this->once())
 			->method('is_empty')
 			->will($this->returnValue(TRUE));
 
-		$cerbeus = new Cerberus($session);
+		$cerbeus = new Cerberus($storage);
 
 		$this->assertFalse($cerbeus->is_valid());
 	}
@@ -119,16 +119,16 @@ class Cerberus_Base_CerberusTest extends PHPUnit_Framework_TestCase {
 	 *
 	 * @return  void
 	 */
-	public function test_is_valid_when_session_not_empty()
+	public function test_is_valid_when_storage_not_empty()
 	{
-		$session = $this->getMock('Cerberus_Session');
+		$storage = $this->getMock('Cerberus_Storage');
 
-		$session
+		$storage
 			->expects($this->once())
 			->method('is_empty')
 			->will($this->returnValue(FALSE));
 
-		$cerbeus = new Cerberus($session);
+		$cerbeus = new Cerberus($storage);
 
 		$this->assertTrue($cerbeus->is_valid());
 	}
@@ -138,15 +138,15 @@ class Cerberus_Base_CerberusTest extends PHPUnit_Framework_TestCase {
 	 *
 	 * @return  void
 	 */
-	public function test_clear_will_clear_session()
+	public function test_clear_will_clear_storage()
 	{
-		$session = $this->getMock('Cerberus_Session');
+		$storage = $this->getMock('Cerberus_Storage');
 
-		$session
+		$storage
 			->expects($this->once())
 			->method('clear');
 
-		$cerberus = new Cerberus($session);
+		$cerberus = new Cerberus($storage);
 
 		$cerberus->clear();
 	}

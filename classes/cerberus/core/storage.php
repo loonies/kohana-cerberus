@@ -4,30 +4,30 @@
  * authentication component to Kohana
  *
  * @package    Cerberus
- * @category   Session
+ * @category   Storage
  * @author     Miodrag Tokić <mtokic@gmail.com>
  * @copyright  (c) 2011, Miodrag Tokić
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    New BSD License
  */
-interface Cerberus_Core_Session {
+interface Cerberus_Core_Storage {
 
 	/**
-	 * Returns TRUE if session is empty
+	 * Returns TRUE if storage is empty
 	 *
 	 * @return  bool
 	 */
 	public function is_empty();
 
 	/**
-	 * Returns the content of session
+	 * Returns the content of storage
 	 *
 	 * @return  mixed
 	 */
 	public function read();
 
 	/**
-	 * Writes content to session
+	 * Writes content to storage
 	 *
 	 * @param   mixed
 	 * @return  void
@@ -35,7 +35,7 @@ interface Cerberus_Core_Session {
 	public function write($content);
 
 	/**
-	 * Clears the session
+	 * Clears the storage
 	 *
 	 * @return  void
 	 */
