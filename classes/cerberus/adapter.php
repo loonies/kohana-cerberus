@@ -1,3 +1,3 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-interface Cerberus_Session extends Cerberus_Core_Session {}
+interface Cerberus_Adapter extends Cerberus_Core_Adapter {}

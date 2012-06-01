@@ -1,9 +1,9 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * Test the Cerberus_Service_Database class
+ * Cerberus_Adapter_Database test
  *
  * @group  cerberus
- * @group  cerberus.service
+ * @group  cerberus.adapter
  *
  * @package    Cerberus
  * @category   Tests
@@ -11,47 +11,57 @@
  * @copyright  (c) 2011, Miodrag Tokić
  * @license    New BSD License
  */
-class Cerberus_Service_DatabaseTest extends Unittest_TestCase {
+class Cerberus_Adapter_DatabaseTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * Test class signature
 	 *
 	 * @return  void
 	 */
-	public function test_Cerberus_Database_implements_Cerberus_Service()
+	public function test_Cerberus_Database_implements_Cerberus_Adapter()
 	{
-		$service = new Cerberus_Service_Database(array('key' => 'foo'));
+		if ( ! class_exists('Database_Query_Builder_Select'))
+		{
+			$this->markTestSkipped('Database module not enabled');
+		}
 
-		$this->assertInstanceOf('Cerberus_Service', $service);
+		$adapter = new Cerberus_Adapter_Database(array('key' => 'foo'));
+
+		$this->assertInstanceOf('Cerberus_Adapter', $adapter);
 	}
 
 	/**
 	 * Test class signature
 	 *
-	 * @return  Cerberus_Service_Database
+	 * @return  Cerberus_Adapter_Database
 	 */
 	public function test_identity_and_password_are_NULL_before_set()
 	{
-		$service = new Cerberus_Service_Database(array('key' => 'foo'));
+		if ( ! class_exists('Database_Query_Builder_Select'))
+		{
+			$this->markTestSkipped('Database module not enabled');
+		}
 
-		$this->assertAttributeSame(NULL, '_identity', $service);
-		$this->assertAttributeSame(NULL, '_password', $service);
+		$adapter = new Cerberus_Adapter_Database(array('key' => 'foo'));
 
-		return $service;
+		$this->assertAttributeSame(NULL, 'identity', $adapter);
+		$this->assertAttributeSame(NULL, 'password', $adapter);
+
+		return $adapter;
 	}
 
 	/**
 	 * @depends  test_identity_and_password_are_NULL_before_set
 	 *
-	 * @param   Cerberus_Service_Database
+	 * @param   Cerberus_Adapter_Database
 	 * @return  void
 	 */
-	public function test_credentials_sets_identity_and_password_and_returns_this(Cerberus_Service $service)
+	public function test_credentials_sets_identity_and_password_and_returns_this(Cerberus_Adapter $adapter)
 	{
-		$service->credentials('itsme', 'GuessMe');
+		$adapter->credentials('itsme', 'GuessMe');
 
-		$this->assertAttributeSame('itsme', '_identity', $service);
-		$this->assertAttributeSame('GuessMe', '_password', $service);
+		$this->assertAttributeSame('itsme', 'identity', $adapter);
+		$this->assertAttributeSame('GuessMe', 'password', $adapter);
 	}
 
 	/**
@@ -93,7 +103,7 @@ class Cerberus_Service_DatabaseTest extends Unittest_TestCase {
 	}
 
 	/**
-	 * @covers  Cerberus_Service_Database::__construct
+	 * @covers  Cerberus_Adapter_Database::__construct
 	 * @dataProvider provider_test_constructor_uses_settings_from_config
 	 *
 	 * @param   array   Passed config
@@ -102,51 +112,66 @@ class Cerberus_Service_DatabaseTest extends Unittest_TestCase {
 	 */
 	public function test_constructor_uses_settings_from_config($config, $expected)
 	{
-		$service = new Cerberus_Service_Database($config);
+		if ( ! class_exists('Database_Query_Builder_Select'))
+		{
+			$this->markTestSkipped('Database module not enabled');
+		}
+
+		$adapter = new Cerberus_Adapter_Database($config);
 
 		foreach ($expected as $key => $value)
 		{
-			$this->assertAttributeSame($value, '_'.$key, $service);
+			$this->assertAttributeSame($value, $key, $adapter);
 		}
 	}
 
 	/**
-	 * @covers  Cerberus_Service_Database::__construct
+	 * @covers  Cerberus_Adapter_Database::__construct
 	 * @expectedException  Kohana_Exception
 	 *
 	 * @return  void
 	 */
 	public function test_throw_exception_if_secret_key_not_set()
 	{
-		new Cerberus_Service_Database(array());
+		new Cerberus_Adapter_Database(array());
 	}
 
 	/**
-	 * @covers  Cerberus_Service_Database::__construct
+	 * @covers  Cerberus_Adapter_Database::__construct
 	 *
 	 * @return  void
 	 */
 	public function test_constructor_sets_Database_Query_Builder_Select_if_non_passed()
 	{
-		$service = new Cerberus_Service_Database(array('key' => 'foo'));
+		if ( ! class_exists('Database_Query_Builder_Select'))
+		{
+			$this->markTestSkipped('Database module not enabled');
+		}
 
-		$this->assertAttributeInstanceOf('Database_Query_Builder_Select', '_query', $service);
+		$adapter = new Cerberus_Adapter_Database(array('key' => 'foo'));
+
+		$this->assertAttributeInstanceOf('Database_Query_Builder_Select', 'query', $adapter);
 	}
 
 	/**
-	 * @covers  Cerberus_Service_Database::__construct
+	 * @covers  Cerberus_Adapter_Database::__construct
 	 *
 	 * @return  void
 	 */
 	public function test_constructor_sets_Database_Query_Builder_Select_if_passed()
 	{
-		$service = new Cerberus_Service_Database(array('key' => 'foo'), new Database_Query_Builder_Select);
+		if ( ! class_exists('Database_Query_Builder_Select'))
+		{
+			$this->markTestSkipped('Database module not enabled');
+		}
 
-		$this->assertAttributeInstanceOf('Database_Query_Builder_Select', '_query', $service);
+		$adapter = new Cerberus_Adapter_Database(array('key' => 'foo'), new Database_Query_Builder_Select);
+
+		$this->assertAttributeInstanceOf('Database_Query_Builder_Select', 'query', $adapter);
 	}
 
 	/**
-	 * @covers  Cerberus_Service_Database::query
+	 * @covers  Cerberus_Adapter_Database::query
 	 *
 	 * @return  array
 	 */
@@ -156,113 +181,118 @@ class Cerberus_Service_DatabaseTest extends Unittest_TestCase {
 	}
 
 	/**
-	 * Returns mocked Cerberus_Service_Database
+	 * Returns mocked Cerberus_Adapter_Database
 	 *
-	 * @return  Cerberus_Service_Database
+	 * @return  Cerberus_Adapter_Database
 	 */
-	public function get_service_mock()
+	public function get_adapter_mock()
 	{
-		return $this->getMockBuilder('Cerberus_Service_Database')
+		return $this->getMockBuilder('Cerberus_Adapter_Database')
 			->disableOriginalConstructor()
 			->setMethods(array('query', 'hash'))
 			->getMock();
 	}
 
 	/**
-	 * @covers  Cerberus_Service_Database::authenticate
+	 * @covers  Cerberus_Adapter_Database::authenticate
 	 *
 	 * @return  array
 	 */
 	public function test_authenticate_FAILURE_IDENTITY_NOT_FOUND()
 	{
-		$service = $this->get_service_mock();
+		$adapter = $this->get_adapter_mock();
 
-		$service
+		$adapter
 			->expects($this->once())
 			->method('query')
 			->will($this->returnValue(FALSE));
 
-		$result = $service->authenticate();
+		$result = $adapter->authenticate();
 
 		$this->assertSame(Cerberus_Result::FAILURE_IDENTITY_NOT_FOUND, $result->code());
 	}
 
 	/**
-	 * @covers  Cerberus_Service_Database::authenticate
+	 * @covers  Cerberus_Adapter_Database::authenticate
 	 *
 	 * @return  array
 	 */
 	public function test_authenticate_FAILURE_CREDENTIAL_INVALID()
 	{
-		$service = $this->get_service_mock();
+		$adapter = $this->get_adapter_mock();
 
-		$service
+		$adapter
 			->expects($this->once())
 			->method('query')
 			->will($this->returnValue(array('password' => 'guessme')));
 
-		$service
+		$adapter
 			->expects($this->once())
 			->method('hash')
 			->will($this->returnValue('cantguess'));
 
-		$result = $service->authenticate();
+		$result = $adapter->authenticate();
 
 		$this->assertSame(Cerberus_Result::FAILURE_CREDENTIAL_INVALID, $result->code());
 	}
 
 	/**
-	 * @covers  Cerberus_Service_Database::authenticate
+	 * @covers  Cerberus_Adapter_Database::authenticate
 	 *
 	 * @return  array
 	 */
 	public function test_authenticate_SUCCESS()
 	{
-		$service = $this->get_service_mock();
+		$adapter = $this->get_adapter_mock();
 
-		$service
+		$adapter
 			->expects($this->once())
 			->method('query')
 			->will($this->returnValue(array('password' => 'guessme')));
 
-		$service
+		$adapter
 			->expects($this->once())
 			->method('hash')
 			->will($this->returnValue('guessme'));
 
-		$result = $service->authenticate();
+		$result = $adapter->authenticate();
 
 		$this->assertSame(Cerberus_Result::SUCCESS, $result->code());
 	}
 
 	/**
-	 * @covers  Cerberus_Service_Database::authenticate
+	 * @covers  Cerberus_Adapter_Database::authenticate
 	 *
 	 * @return  array
 	 */
 	public function test_authenticate_hashes_password()
 	{
-		$service = $this->get_service_mock();
+		$adapter = $this->get_adapter_mock();
 
-		$service
+		$adapter
 			->expects($this->once())
 			->method('query')
 			->will($this->returnValue(array('password' => 'foobar')));
 
-		$service
+		$adapter
 			->expects($this->once())
 			->method('hash');
 
-		$service->authenticate();
+		$adapter->authenticate();
 	}
 
 	/**
-	 * @covers  Cerberus_Service_Database::hash
+	 * @covers  Cerberus_Adapter_Database::hash
 	 *
 	 * @return  array
 	 */
 	public function test_hash_with_specified_algorithm()
 	{
+		if ( ! class_exists('Database_Query_Builder_Select'))
+		{
+			$this->markTestSkipped('Database module not enabled');
+		}
+
 		$pass = 'guessme';
 		$algo = 'md5';
 		$key  = 'top-secret';
@@ -272,8 +302,8 @@ class Cerberus_Service_DatabaseTest extends Unittest_TestCase {
 			'algorithm' => $algo,
 		);
 
-		$service = new Cerberus_Service_Database($config);
+		$adapter = new Cerberus_Adapter_Database($config);
 
-		$this->assertSame(hash_hmac($algo, $pass, $key), $service->hash($pass));
+		$this->assertSame(hash_hmac($algo, $pass, $key), $adapter->hash($pass));
 	}
 }

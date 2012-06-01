@@ -4,30 +4,30 @@
  * authentication component to Kohana
  *
  * @package    Cerberus
- * @category   Session
+ * @category   Storage
  * @author     Miodrag Tokić <mtokic@gmail.com>
  * @copyright  (c) 2011, Miodrag Tokić
  * @license    New BSD License
  */
-class Cerberus_Core_Session_Cookie implements Cerberus_Session {
+class Cerberus_Core_Storage_Cookie implements Cerberus_Storage {
 
 	/**
 	 * @var  string
 	 */
-	protected $_content = NULL;
+	protected $content = NULL;
 
 	/**
 	 * @var  string  Cookie name
 	 */
-	protected $_name = 'cerberus';
+	protected $name = 'cerberus';
 
 	/**
 	 * @var  int  Cookie lifetime
 	 */
-	protected $_lifetime = Date::WEEK;
+	protected $lifetime = Date::WEEK;
 
 	/**
-	 * Creates a new Cerberus_Session_Cookie instance
+	 * Creates a new Cerberus_Storage_Cookie instance
 	 *
 	 * @param   array   Configuration
 	 * @return  void
@@ -36,17 +36,17 @@ class Cerberus_Core_Session_Cookie implements Cerberus_Session {
 	{
 		if (isset($config['lifetime']))
 		{
-			$this->_lifetime = $config['lifetime'];
+			$this->lifetime = $config['lifetime'];
 		}
 
 		if (isset($config['name']))
 		{
-			$this->_name = $config['name'];
+			$this->name = $config['name'];
 		}
 	}
 
 	/**
-	 * Implements [Cerberus_Session::is_empty]
+	 * Implements [Cerberus_Storage::is_empty]
 	 *
 	 * @return  bool
 	 */
@@ -56,42 +56,42 @@ class Cerberus_Core_Session_Cookie implements Cerberus_Session {
 	}
 
 	/**
-	 * Implements [Cerberus_Session::read]
+	 * Implements [Cerberus_Storage::read]
 	 *
 	 * @return  string
 	 */
 	public function read()
 	{
-		if ($this->_content === NULL)
+		if ($this->content === NULL)
 		{
-			$this->_content = Cookie::get($this->_name);
+			$this->content = Cookie::get($this->name);
 		}
 
-		return $this->_content;
+		return $this->content;
 	}
 
 	/**
-	 * Implements [Cerberus_Session::write]
+	 * Implements [Cerberus_Storage::write]
 	 *
 	 * @param   string
 	 * @return  void
 	 */
 	public function write($content)
 	{
-		$this->_content = $content;
+		$this->content = $content;
 
-		Cookie::set($this->_name, $content, $this->_lifetime);
+		Cookie::set($this->name, $content, $this->lifetime);
 	}
 
 	/**
-	 * Implements [Cerberus_Session::clear]
+	 * Implements [Cerberus_Storage::clear]
 	 *
 	 * @return  void
 	 */
 	public function clear()
 	{
-		$this->_content = NULL;
+		$this->content = NULL;
 
-		Cookie::delete($this->_name);
+		Cookie::delete($this->name);
 	}
 }
