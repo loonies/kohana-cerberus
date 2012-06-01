@@ -29,15 +29,15 @@ class Cerberus_Core {
 	}
 
 	/**
-	 * Authenticates against the supplied service
+	 * Authenticates against the supplied adapter
 	 *
 	 * @throws  Cerberus_Exception
-	 * @param   Cerberus_Service
+	 * @param   Cerberus_Adapter
 	 * @return  Ceberus_Result
 	 */
-	public function authenticate(Cerberus_Service $service)
+	public function authenticate(Cerberus_Adapter $adapter)
 	{
-		$result = $service->authenticate();
+		$result = $adapter->authenticate();
 
 		$this->_storage->clear();
 

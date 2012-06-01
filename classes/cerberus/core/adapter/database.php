@@ -4,12 +4,12 @@
  * authentication component to Kohana
  *
  * @package    Cerberus
- * @category   Service
+ * @category   Adapter
  * @author     Miodrag Tokić <mtokic@gmail.com>
  * @copyright  (c) 2011, Miodrag Tokić
  * @license    New BSD License
  */
-class Cerberus_Core_Service_Database implements Cerberus_Service {
+class Cerberus_Core_Adapter_Database implements Cerberus_Adapter {
 
 	/**
 	 * @var  mixed  Database query object
@@ -97,7 +97,7 @@ class Cerberus_Core_Service_Database implements Cerberus_Service {
 	 *
 	 * @param   string  Identity
 	 * @param   string  Password
-	 * @return  Cerberus_Service_Database
+	 * @return  Cerberus_Adapter_Database
 	 */
 	public function credentials($identity, $password)
 	{
@@ -125,7 +125,7 @@ class Cerberus_Core_Service_Database implements Cerberus_Service {
 	}
 
 	/**
-	 * Implements [Cerberus_Service::authenticate]
+	 * Implements [Cerberus_Adapter::authenticate]
 	 *
 	 * @return  Cerberus_Result
 	 */

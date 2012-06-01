@@ -35,9 +35,9 @@ class Cerberus_Base_CerberusTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_authentication_failure_throws_exception()
 	{
-		$service = $this->getMock('Cerberus_Service');
+		$adapter = $this->getMock('Cerberus_Adapter');
 
-		$service
+		$adapter
 			->expects($this->once())
 			->method('authenticate')
 			->will($this->returnValue(new Cerberus_Result(Cerberus_Result::FAILURE_GENERAL, 'itsnotme')));
@@ -46,7 +46,7 @@ class Cerberus_Base_CerberusTest extends PHPUnit_Framework_TestCase {
 
 		$cerberus = new Cerberus($storage);
 
-		$cerberus->authenticate($service);
+		$cerberus->authenticate($adapter);
 	}
 
 	/**
@@ -56,9 +56,9 @@ class Cerberus_Base_CerberusTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_successful_authentication_writes_to_storage()
 	{
-		$service = $this->getMock('Cerberus_Service');
+		$adapter = $this->getMock('Cerberus_Adapter');
 
-		$service
+		$adapter
 			->expects($this->once())
 			->method('authenticate')
 			->will($this->returnValue(new Cerberus_Result(Cerberus_Result::SUCCESS, 'itsme')));
@@ -71,7 +71,7 @@ class Cerberus_Base_CerberusTest extends PHPUnit_Framework_TestCase {
 
 		$cerberus = new Cerberus($storage);
 
-		$cerberus->authenticate($service);
+		$cerberus->authenticate($adapter);
 	}
 
 	/**
@@ -81,9 +81,9 @@ class Cerberus_Base_CerberusTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_successful_authentication_returns_result_obj()
 	{
-		$service = $this->getMock('Cerberus_Service');
+		$adapter = $this->getMock('Cerberus_Adapter');
 
-		$service
+		$adapter
 			->expects($this->once())
 			->method('authenticate')
 			->will($this->returnValue(new Cerberus_Result(Cerberus_Result::SUCCESS, 'itsme')));
@@ -92,7 +92,7 @@ class Cerberus_Base_CerberusTest extends PHPUnit_Framework_TestCase {
 
 		$cerbeus = new Cerberus($storage);
 
-		$this->assertInstanceOf('Cerberus_Result', $cerbeus->authenticate($service));
+		$this->assertInstanceOf('Cerberus_Result', $cerbeus->authenticate($adapter));
 	}
 
 	/**
