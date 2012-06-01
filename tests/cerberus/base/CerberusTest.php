@@ -24,7 +24,7 @@ class Cerberus_Base_CerberusTest extends PHPUnit_Framework_TestCase {
 
 		$cerberus = new Cerberus($storage);
 
-		$this->assertAttributeInstanceOf('Cerberus_Storage', '_storage', $cerberus);
+		$this->assertAttributeInstanceOf('Cerberus_Storage', 'storage', $cerberus);
 	}
 
 	/**

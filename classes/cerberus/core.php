@@ -15,7 +15,7 @@ class Cerberus_Core {
 	/**
 	 * @var  Cerberus_Storage
 	 */
-	protected $_storage = NULL;
+	protected $storage = NULL;
 
 	/**
 	 * Creates a new Cerberus instance
@@ -25,7 +25,7 @@ class Cerberus_Core {
 	 */
 	public function __construct(Cerberus_Storage $storage)
 	{
-		$this->_storage = $storage;
+		$this->storage = $storage;
 	}
 
 	/**
@@ -39,12 +39,12 @@ class Cerberus_Core {
 	{
 		$result = $adapter->authenticate();
 
-		$this->_storage->clear();
+		$this->storage->clear();
 
 		if ( ! $result->is_valid())
 			throw new Cerberus_Exception($result);
 
-		$this->_storage->write($result->identity());
+		$this->storage->write($result->identity());
 
 		return $result;
 	}
@@ -56,7 +56,7 @@ class Cerberus_Core {
 	 */
 	public function identity()
 	{
-		return $this->_storage->read();
+		return $this->storage->read();
 	}
 
 	/**
@@ -66,7 +66,7 @@ class Cerberus_Core {
 	 */
 	public function is_valid()
 	{
-		return ! $this->_storage->is_empty();
+		return ! $this->storage->is_empty();
 	}
 
 	/**
@@ -76,6 +76,6 @@ class Cerberus_Core {
 	 */
 	public function clear()
 	{
-		$this->_storage->clear();
+		$this->storage->clear();
 	}
 }

@@ -21,12 +21,12 @@ class Cerberus_Core_Result {
 	/**
 	 * @var  int  Authentication result code
 	 */
-	protected $_code;
+	protected $code;
 
 	/**
 	 * @var  mixed  The identity used in the authentication attempt
 	 */
-    protected $_identity;
+    protected $identity;
 
 	/**
 	 * Creates a new Cerberus_Result instance
@@ -37,8 +37,8 @@ class Cerberus_Core_Result {
 	 */
     public function __construct($code, $identity)
     {
-		$this->_code     = $code;
-		$this->_identity = $identity;
+		$this->code     = $code;
+		$this->identity = $identity;
     }
 
 	/**
@@ -48,7 +48,7 @@ class Cerberus_Core_Result {
 	 */
 	public function is_valid()
 	{
-		return $this->_code > 0;
+		return $this->code > 0;
 	}
 
 	/**
@@ -58,7 +58,7 @@ class Cerberus_Core_Result {
 	 */
     public function code()
     {
-        return $this->_code;
+        return $this->code;
     }
 
 	/**
@@ -68,6 +68,6 @@ class Cerberus_Core_Result {
 	 */
     public function identity()
     {
-        return $this->_identity;
+        return $this->identity;
     }
 }

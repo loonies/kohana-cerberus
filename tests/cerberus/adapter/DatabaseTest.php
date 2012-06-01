@@ -44,8 +44,8 @@ class Cerberus_Adapter_DatabaseTest extends PHPUnit_Framework_TestCase {
 
 		$adapter = new Cerberus_Adapter_Database(array('key' => 'foo'));
 
-		$this->assertAttributeSame(NULL, '_identity', $adapter);
-		$this->assertAttributeSame(NULL, '_password', $adapter);
+		$this->assertAttributeSame(NULL, 'identity', $adapter);
+		$this->assertAttributeSame(NULL, 'password', $adapter);
 
 		return $adapter;
 	}
@@ -60,8 +60,8 @@ class Cerberus_Adapter_DatabaseTest extends PHPUnit_Framework_TestCase {
 	{
 		$adapter->credentials('itsme', 'GuessMe');
 
-		$this->assertAttributeSame('itsme', '_identity', $adapter);
-		$this->assertAttributeSame('GuessMe', '_password', $adapter);
+		$this->assertAttributeSame('itsme', 'identity', $adapter);
+		$this->assertAttributeSame('GuessMe', 'password', $adapter);
 	}
 
 	/**
@@ -121,7 +121,7 @@ class Cerberus_Adapter_DatabaseTest extends PHPUnit_Framework_TestCase {
 
 		foreach ($expected as $key => $value)
 		{
-			$this->assertAttributeSame($value, '_'.$key, $adapter);
+			$this->assertAttributeSame($value, $key, $adapter);
 		}
 	}
 
@@ -150,7 +150,7 @@ class Cerberus_Adapter_DatabaseTest extends PHPUnit_Framework_TestCase {
 
 		$adapter = new Cerberus_Adapter_Database(array('key' => 'foo'));
 
-		$this->assertAttributeInstanceOf('Database_Query_Builder_Select', '_query', $adapter);
+		$this->assertAttributeInstanceOf('Database_Query_Builder_Select', 'query', $adapter);
 	}
 
 	/**
@@ -167,7 +167,7 @@ class Cerberus_Adapter_DatabaseTest extends PHPUnit_Framework_TestCase {
 
 		$adapter = new Cerberus_Adapter_Database(array('key' => 'foo'), new Database_Query_Builder_Select);
 
-		$this->assertAttributeInstanceOf('Database_Query_Builder_Select', '_query', $adapter);
+		$this->assertAttributeInstanceOf('Database_Query_Builder_Select', 'query', $adapter);
 	}
 
 	/**

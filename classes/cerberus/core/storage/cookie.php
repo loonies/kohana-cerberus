@@ -14,17 +14,17 @@ class Cerberus_Core_Storage_Cookie implements Cerberus_Storage {
 	/**
 	 * @var  string
 	 */
-	protected $_content = NULL;
+	protected $content = NULL;
 
 	/**
 	 * @var  string  Cookie name
 	 */
-	protected $_name = 'cerberus';
+	protected $name = 'cerberus';
 
 	/**
 	 * @var  int  Cookie lifetime
 	 */
-	protected $_lifetime = Date::WEEK;
+	protected $lifetime = Date::WEEK;
 
 	/**
 	 * Creates a new Cerberus_Storage_Cookie instance
@@ -36,12 +36,12 @@ class Cerberus_Core_Storage_Cookie implements Cerberus_Storage {
 	{
 		if (isset($config['lifetime']))
 		{
-			$this->_lifetime = $config['lifetime'];
+			$this->lifetime = $config['lifetime'];
 		}
 
 		if (isset($config['name']))
 		{
-			$this->_name = $config['name'];
+			$this->name = $config['name'];
 		}
 	}
 
@@ -62,12 +62,12 @@ class Cerberus_Core_Storage_Cookie implements Cerberus_Storage {
 	 */
 	public function read()
 	{
-		if ($this->_content === NULL)
+		if ($this->content === NULL)
 		{
-			$this->_content = Cookie::get($this->_name);
+			$this->content = Cookie::get($this->name);
 		}
 
-		return $this->_content;
+		return $this->content;
 	}
 
 	/**
@@ -78,9 +78,9 @@ class Cerberus_Core_Storage_Cookie implements Cerberus_Storage {
 	 */
 	public function write($content)
 	{
-		$this->_content = $content;
+		$this->content = $content;
 
-		Cookie::set($this->_name, $content, $this->_lifetime);
+		Cookie::set($this->name, $content, $this->lifetime);
 	}
 
 	/**
@@ -90,8 +90,8 @@ class Cerberus_Core_Storage_Cookie implements Cerberus_Storage {
 	 */
 	public function clear()
 	{
-		$this->_content = NULL;
+		$this->content = NULL;
 
-		Cookie::delete($this->_name);
+		Cookie::delete($this->name);
 	}
 }

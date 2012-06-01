@@ -16,13 +16,13 @@ class Cerberus_Storage_CookieTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @var  Cerberus_Storage_Cookie
 	 */
-	protected $_storage;
+	protected $storage;
 
 	public function setUp()
 	{
 		parent::setUp();
 
-		$this->_storage = new Cerberus_Storage_Cookie;
+		$this->storage = new Cerberus_Storage_Cookie;
 	}
 
 	/**
@@ -32,11 +32,11 @@ class Cerberus_Storage_CookieTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_after_clear_storage_is_empty()
 	{
-		$this->_storage->write('junk');
+		$this->storage->write('junk');
 
-		$this->_storage->clear();
+		$this->storage->clear();
 
-		$this->assertTrue($this->_storage->is_empty());
+		$this->assertTrue($this->storage->is_empty());
 	}
 
 	/**
@@ -47,8 +47,8 @@ class Cerberus_Storage_CookieTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_rw()
 	{
-		$this->_storage->write('foobar');
+		$this->storage->write('foobar');
 
-		$this->assertSame('foobar', $this->_storage->read());
+		$this->assertSame('foobar', $this->storage->read());
 	}
 }
