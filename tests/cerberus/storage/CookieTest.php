@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * Test the Cerberus_Cookie_Storage class
+ * Cerberus_Cookie_Storage test
  *
  * @group  cerberus
  * @group  cerberus.storage

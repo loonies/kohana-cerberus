@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * Test the Cerberus_Adapter_Database class
+ * Cerberus_Adapter_Database test
  *
  * @group  cerberus
  * @group  cerberus.adapter

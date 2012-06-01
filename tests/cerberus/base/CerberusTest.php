@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * Test the Cerberus_Exception class
+ * Cerberus_Exception test
  *
  * @group  cerberus
  * @group  cerberus.base
