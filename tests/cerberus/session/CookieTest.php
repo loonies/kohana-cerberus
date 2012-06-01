@@ -11,7 +11,7 @@
  * @copyright  (c) 2011, Miodrag Tokić
  * @license    New BSD License
  */
-class Cerberus_Session_CookieTest extends Unittest_TestCase {
+class Cerberus_Storage_CookieTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @var  Cerberus_Session_Cookie

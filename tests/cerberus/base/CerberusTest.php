@@ -11,7 +11,7 @@
  * @copyright  (c) 2011, Miodrag Tokić
  * @license    New BSD License
  */
-class Cerberus_Base_CerberusTest extends Unittest_TestCase {
+class Cerberus_Base_CerberusTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @covers  Cerberus::__construct

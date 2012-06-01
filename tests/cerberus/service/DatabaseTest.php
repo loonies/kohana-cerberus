@@ -11,7 +11,7 @@
  * @copyright  (c) 2011, Miodrag Tokić
  * @license    New BSD License
  */
-class Cerberus_Service_DatabaseTest extends Unittest_TestCase {
+class Cerberus_Service_DatabaseTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * Test class signature

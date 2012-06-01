@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<phpunit
+	colors="true"
+	bootstrap="../../phpunit.php"
+>
+	<testsuites>
+		<testsuite name="Cerberus Tests">
+			<directory>tests/cerberus</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>
