@@ -1,7 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * A port of [Zend Framework](http://framework.zend.com/)
- * authentication component to Kohana
+ * Database authentication adapter
  *
  * @package    Cerberus
  * @category   Adapter
@@ -12,35 +11,17 @@
 class Cerberus_Core_Adapter_Database implements Cerberus_Adapter {
 
 	/**
-	 * @var  mixed  Database query object
+	 * @var  Cerberus_Adapter_Database_Query
 	 */
-	protected $query = NULL;
+	protected $query;
 
 	/**
-	 * @var  string  Database table name
+	 * @var  Cerberus_Hasher
 	 */
-	protected $table = 'user';
+	protected $hasher;
 
 	/**
-	 * @var  array  Database column names
-	 */
-	protected $columns = array(
-		'identity' => 'username',
-		'password' => 'password',
-	);
-
-	/**
-	 * @var  string  Hashing algorithm
-	 */
-	protected $algorithm = 'sha256';
-
-	/**
-	 * @var  string  Shared secret key
-	 */
-	protected $key = NULL;
-
-	/**
-	 * @var  string  User's identity
+	 * @var  string  Identity
 	 */
 	protected $identity = NULL;
 
@@ -50,46 +31,19 @@ class Cerberus_Core_Adapter_Database implements Cerberus_Adapter {
 	protected $password = NULL;
 
 	/**
-	 * Constructor
+	 * Creates a new database adapter instance
 	 *
-	 * @param   array   Configuration
-	 * @param   Database_Query_Builder_Select
+	 * @param   Cerberus_Adapter_Database_Query
+	 * @param   Cerberus_Hasher
 	 * @return  void
 	 */
-	public function __construct(array $config, Database_Query_Builder_Select $query = NULL)
+	public function __construct(
+		Cerberus_Adapter_Database_Query $query,
+		Cerberus_Hasher $hasher
+	)
 	{
-		if ( ! isset($config['key']))
-			throw new Kohana_Exception('A valid secret key must be set in config');
-
-		// Set key
-		$this->key = $config['key'];
-
-		if (isset($config['algorithm']))
-		{
-			// Set hashing algorithm
-			$this->algorithm = $config['algorithm'];
-		}
-
-		if (isset($config['table']))
-		{
-			// Set the table name
-			$this->table = $config['table'];
-		}
-
-		if (isset($config['columns']))
-		{
-			// Overload column names
-			$this->columns = $config['columns'];
-		}
-
-		if ($query === NULL)
-		{
-			// Use default query builder
-			$query = new Database_Query_Builder_Select;
-		}
-
-		// Set a query object
-		$this->query = $query;
+		$this->query  = $query;
+		$this->hasher = $hasher;
 	}
 
 	/**
@@ -109,58 +63,30 @@ class Cerberus_Core_Adapter_Database implements Cerberus_Adapter {
 	}
 
 	/**
-	 * Returns data from executed query
-	 *
-	 * @return  array
-	 */
-	protected function query()
-	{
-		return $this->query
-			->select($this->columns['identity'], $this->columns['password'])
-			->from($this->_table)
-			->where($this->columns['identity'], '=', $this->identity)
-			->limit(1)
-			->execute()
-			->current();
-	}
-
-	/**
 	 * Implements [Cerberus_Adapter::authenticate]
 	 *
 	 * @return  Cerberus_Result
 	 */
 	public function authenticate()
 	{
-		$data = $this->query();
+		$hash = $this->query->find($this->identity);
 
-		if ($data === FALSE)
+		$password_check = $this->hasher->check($this->password, $hash);
+
+		if ($hash === NULL)
 		{
 			return new Cerberus_Result(Cerberus_Result::FAILURE_IDENTITY_NOT_FOUND, $this->identity);
 		}
 
-		// Get the password hash
-		$password = $this->hash($this->password);
-
-		if ($password !== $data[$this->columns['password']])
+		if ($password_check === FALSE)
 		{
 			return new Cerberus_Result(Cerberus_Result::FAILURE_CREDENTIAL_INVALID, $this->identity);
 		}
-		elseif ($password === $data[$this->columns['password']])
+		elseif ($password_check === TRUE)
 		{
 			return new Cerberus_Result(Cerberus_Result::SUCCESS, $this->identity);
 		}
 
 		return new Cerberus_Result(Cerberus_Result::FAILURE_GENERAL, $this->identity);
-	}
-
-	/**
-	 * Returns hashed password
-	 *
-	 * @param   string
-	 * @return  string
-	 */
-	public function hash($password)
-	{
-		return hash_hmac($this->algorithm, $password, $this->key);
 	}
 }

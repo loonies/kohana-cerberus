@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * Cerberus_Cookie_Storage test
+ * Cerberus_Storage_Cookie test
  *
  * @group  cerberus
  * @group  cerberus.storage
@@ -14,41 +14,86 @@
 class Cerberus_Storage_CookieTest extends PHPUnit_Framework_TestCase {
 
 	/**
-	 * @var  Cerberus_Storage_Cookie
+	 * Provider for [test_it_sets_config_options]
+	 *
+	 * @return  array
 	 */
-	protected $storage;
-
-	public function setUp()
+	public function provider_it_sets_config_options()
 	{
-		parent::setUp();
+		return array(
+			array(
+				array('name' => 'foo', 'lifetime' => 2),
+				array('name' => 'foo', 'lifetime' => 2),
+			),
+			array(
+				array(),
+				array('name' => 'cerberus', 'lifetime' => Date::WEEK),
+			),
+		);
+	}
 
-		$this->storage = new Cerberus_Storage_Cookie;
+	public function test_it_implements_storage_interface()
+	{
+		$this->assertInstanceOf('Cerberus_Storage', new Cerberus_Storage_Cookie);
+	}
+
+	/**
+	 * @covers  Cerberus_Storage_Cookie::__construct
+	 *
+	 * @dataProvider  provider_it_sets_config_options
+	 */
+	public function test_it_sets_config_options(array $config, array $expected)
+	{
+		$storage = new Cerberus_Storage_Cookie($config);
+
+		$this->assertAttributeSame($expected['name'], 'name', $storage);
+		$this->assertAttributeSame($expected['lifetime'], 'lifetime', $storage);
+	}
+
+	public function test_it_is_empty_initialy()
+	{
+		$storage = new Cerberus_Storage_Cookie;
+
+		$this->assertTrue($storage->is_empty());
+	}
+
+	/**
+	 * @covers  Cerberus_Storage_Cookie::is_empty
+	 */
+	public function test_it_is_not_empty_after_writing()
+	{
+		$storage = new Cerberus_Storage_Cookie;
+
+		$storage->write('whatever');
+
+		$this->assertFalse($storage->is_empty());
 	}
 
 	/**
 	 * @covers  Cerberus_Storage_Cookie::clear
-	 *
-	 * @return  void
+	 * @covers  Cerberus_Storage_Cookie::is_empty
 	 */
-	public function test_after_clear_storage_is_empty()
+	public function test_it_is_empty_after_clearing()
 	{
-		$this->storage->write('junk');
+		$storage = new Cerberus_Storage_Cookie;
 
-		$this->storage->clear();
+		$storage->write('junk');
 
-		$this->assertTrue($this->storage->is_empty());
+		$storage->clear();
+
+		$this->assertTrue($storage->is_empty());
 	}
 
 	/**
 	 * @covers  Cerberus_Storage_Cookie::read
 	 * @covers  Cerberus_Storage_Cookie::write
-	 *
-	 * @return  void
 	 */
-	public function test_rw()
+	public function test_it_reads_and_writes_content()
 	{
-		$this->storage->write('foobar');
+		$storage = new Cerberus_Storage_Cookie;
 
-		$this->assertSame('foobar', $this->storage->read());
+		$storage->write('foobar');
+
+		$this->assertSame('foobar', $storage->read());
 	}
 }
