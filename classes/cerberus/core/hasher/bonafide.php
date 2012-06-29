@@ -9,7 +9,7 @@
  * @package    Cerberus
  * @category   Hasher
  * @author     Miodrag Tokić <mtokic@gmail.com>
- * @copyright  (c) 2011, Miodrag Tokić
+ * @copyright  (c) 2011-2012, Miodrag Tokić
  * @license    New BSD License
  */
 class Cerberus_Core_Hasher_Bonafide implements Cerberus_Hasher {

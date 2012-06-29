@@ -1,12 +1,11 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * A port of [Zend Framework](http://framework.zend.com/)
- * authentication component to Kohana
+ * Cookie storage
  *
  * @package    Cerberus
  * @category   Storage
  * @author     Miodrag Tokić <mtokic@gmail.com>
- * @copyright  (c) 2011, Miodrag Tokić
+ * @copyright  (c) 2011-2012, Miodrag Tokić
  * @license    New BSD License
  */
 class Cerberus_Core_Storage_Cookie implements Cerberus_Storage {
@@ -48,6 +47,8 @@ class Cerberus_Core_Storage_Cookie implements Cerberus_Storage {
 	/**
 	 * Implements [Cerberus_Storage::is_empty]
 	 *
+	 * @see  Cerberus_Storage::is_empty
+	 *
 	 * @return  bool
 	 */
 	public function is_empty()
@@ -57,6 +58,8 @@ class Cerberus_Core_Storage_Cookie implements Cerberus_Storage {
 
 	/**
 	 * Implements [Cerberus_Storage::read]
+	 *
+	 * @see  Cerberus_Storage::read
 	 *
 	 * @return  string
 	 */
@@ -73,6 +76,8 @@ class Cerberus_Core_Storage_Cookie implements Cerberus_Storage {
 	/**
 	 * Implements [Cerberus_Storage::write]
 	 *
+	 * @see  Cerberus_Storage::write
+	 *
 	 * @param   string
 	 * @return  void
 	 */
@@ -85,6 +90,8 @@ class Cerberus_Core_Storage_Cookie implements Cerberus_Storage {
 
 	/**
 	 * Implements [Cerberus_Storage::clear]
+	 *
+	 * @see  Cerberus_Storage::clear
 	 *
 	 * @return  void
 	 */
