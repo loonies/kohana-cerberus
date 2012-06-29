@@ -1,7 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * A port of [Zend Framework](http://framework.zend.com/)
- * authentication component to Kohana
+ * Authentication adapter interface
  *
  * @package    Cerberus
  * @category   Adapter
