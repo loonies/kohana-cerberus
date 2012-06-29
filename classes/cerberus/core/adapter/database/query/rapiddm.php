@@ -4,6 +4,8 @@
  *
  * Implements a bridge design pattern between Cerberus and Rapiddm
  *
+ * @link  https://github.com/loonies/kohana-rapiddm
+ *
  * @package    Cerberus
  * @category   Adapter/Database
  * @author     Miodrag Tokić <mtokic@gmail.com>
