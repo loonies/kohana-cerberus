@@ -65,6 +65,8 @@ class Cerberus_Core_Adapter_Database implements Cerberus_Adapter {
 	/**
 	 * Implements [Cerberus_Adapter::authenticate]
 	 *
+	 * @see  Cerberus_Adapter::authenticate
+	 *
 	 * @return  Cerberus_Result
 	 */
 	public function authenticate()

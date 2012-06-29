@@ -48,6 +48,8 @@ class Cerberus_Core_Storage_Cookie implements Cerberus_Storage {
 	/**
 	 * Implements [Cerberus_Storage::is_empty]
 	 *
+	 * @see  Cerberus_Storage::is_empty
+	 *
 	 * @return  bool
 	 */
 	public function is_empty()
@@ -57,6 +59,8 @@ class Cerberus_Core_Storage_Cookie implements Cerberus_Storage {
 
 	/**
 	 * Implements [Cerberus_Storage::read]
+	 *
+	 * @see  Cerberus_Storage::read
 	 *
 	 * @return  string
 	 */
@@ -73,6 +77,8 @@ class Cerberus_Core_Storage_Cookie implements Cerberus_Storage {
 	/**
 	 * Implements [Cerberus_Storage::write]
 	 *
+	 * @see  Cerberus_Storage::write
+	 *
 	 * @param   string
 	 * @return  void
 	 */
@@ -85,6 +91,8 @@ class Cerberus_Core_Storage_Cookie implements Cerberus_Storage {
 
 	/**
 	 * Implements [Cerberus_Storage::clear]
+	 *
+	 * @see  Cerberus_Storage::clear
 	 *
 	 * @return  void
 	 */
