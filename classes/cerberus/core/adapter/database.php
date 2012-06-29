@@ -71,12 +71,12 @@ class Cerberus_Core_Adapter_Database implements Cerberus_Adapter {
 	{
 		$hash = $this->query->find($this->identity);
 
-		$password_check = $this->hasher->check($this->password, $hash);
-
 		if ($hash === NULL)
 		{
 			return new Cerberus_Result(Cerberus_Result::FAILURE_IDENTITY_NOT_FOUND, $this->identity);
 		}
+
+		$password_check = $this->hasher->check($this->password, $hash);
 
 		if ($password_check === FALSE)
 		{

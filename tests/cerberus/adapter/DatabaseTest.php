@@ -78,6 +78,31 @@ class Cerberus_Adapter_DatabaseTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @covers  Cerberus_Adapter_Database::authenticate
+	 */
+	public function test_it_doesnt_hash_password_if_user_not_found()
+	{
+		$query = $this->getMockForAbstractClass('Cerberus_Adapter_Database_Query');
+
+		$query
+			->expects($this->once())
+			->method('find')
+			->will($this->returnValue(NULL));
+
+		$hasher = $this->getMock('Cerberus_Hasher');
+
+		$hasher
+			->expects($this->never())
+			->method('check');
+
+		$adapter = new Cerberus_Adapter_Database($query, $hasher);
+
+		$result = $adapter->authenticate();
+
+		$this->assertSame(Cerberus_Result::FAILURE_IDENTITY_NOT_FOUND, $result->code());
+	}
+
+	/**
+	 * @covers  Cerberus_Adapter_Database::authenticate
 	 *
 	 * @dataProvider  provider_it_returns_authentication_result
 	 *
@@ -97,7 +122,7 @@ class Cerberus_Adapter_DatabaseTest extends PHPUnit_Framework_TestCase {
 		$hasher = $this->getMock('Cerberus_Hasher');
 
 		$hasher
-			->expects($this->once())
+			->expects($this->any())
 			->method('check')
 			->will($this->returnValue($verification));
 
