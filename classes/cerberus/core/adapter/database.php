@@ -5,7 +5,7 @@
  * @package    Cerberus
  * @category   Adapter
  * @author     Miodrag Tokić <mtokic@gmail.com>
- * @copyright  (c) 2011, Miodrag Tokić
+ * @copyright  (c) 2011-2012, Miodrag Tokić
  * @license    New BSD License
  */
 class Cerberus_Core_Adapter_Database implements Cerberus_Adapter {
@@ -64,6 +64,8 @@ class Cerberus_Core_Adapter_Database implements Cerberus_Adapter {
 
 	/**
 	 * Implements [Cerberus_Adapter::authenticate]
+	 *
+	 * @see  Cerberus_Adapter::authenticate
 	 *
 	 * @return  Cerberus_Result
 	 */

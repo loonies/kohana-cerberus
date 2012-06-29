@@ -1,12 +1,11 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * A port of [Zend Framework](http://framework.zend.com/)
- * authentication component to Kohana
+ * Authentication exception
  *
  * @package    Cerberus
  * @category   Exception
  * @author     Miodrag Tokić <mtokic@gmail.com>
- * @copyright  (c) 2011, Miodrag Tokić
+ * @copyright  (c) 2011-2012, Miodrag Tokić
  * @license    New BSD License
  */
 class Cerberus_Core_Exception extends Kohana_Exception {
@@ -14,7 +13,7 @@ class Cerberus_Core_Exception extends Kohana_Exception {
 	/**
 	 * @var  Cerberus_Result
 	 */
-	public $result;
+	protected $result;
 
 	/**
 	 * Creates a new Cerberus_Exception instance
@@ -30,5 +29,15 @@ class Cerberus_Core_Exception extends Kohana_Exception {
 		$this->result = $result;
 
 		parent::__construct($message, $variables, $result->code());
+	}
+
+	/**
+	 * Returns a result from the authentication attempt
+	 *
+	 * @return  Cerberus_Result
+	 */
+	public function result()
+	{
+		return $this->result;
 	}
 }
