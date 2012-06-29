@@ -1,12 +1,11 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * A port of [Zend Framework](http://framework.zend.com/)
- * authentication component to Kohana
+ * Authentication exception
  *
  * @package    Cerberus
  * @category   Exception
  * @author     Miodrag Tokić <mtokic@gmail.com>
- * @copyright  (c) 2011, Miodrag Tokić
+ * @copyright  (c) 2011-2012, Miodrag Tokić
  * @license    New BSD License
  */
 class Cerberus_Core_Exception extends Kohana_Exception {

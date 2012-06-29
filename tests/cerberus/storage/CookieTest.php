@@ -8,7 +8,7 @@
  * @package    Cerberus
  * @category   Tests
  * @author     Miodrag Tokić <mtokic@gmail.com>
- * @copyright  (c) 2011, Miodrag Tokić
+ * @copyright  (c) 2011-2012, Miodrag Tokić
  * @license    New BSD License
  */
 class Cerberus_Storage_CookieTest extends PHPUnit_Framework_TestCase {
