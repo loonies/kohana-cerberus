@@ -9,6 +9,7 @@
  * @category   Tests
  * @author     Miodrag Tokić <mtokic@gmail.com>
  * @copyright  (c) 2011-2012, Miodrag Tokić
+ * @license    New BSD License
  */
 class Cerberus_Hasher_BonafideTest extends PHPUnit_Framework_TestCase {
 
