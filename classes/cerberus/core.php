@@ -32,6 +32,7 @@ class Cerberus_Core {
 	 * Authenticates against the supplied adapter
 	 *
 	 * @throws  Cerberus_Exception
+	 *
 	 * @param   Cerberus_Adapter
 	 * @return  Ceberus_Result
 	 */
