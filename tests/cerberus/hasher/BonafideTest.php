@@ -8,7 +8,7 @@
  * @package    Cerberus
  * @category   Tests
  * @author     Miodrag Tokić
- * @copyright  (c) 2011, Miodrag Tokić
+ * @copyright  (c) 2011-2012, Miodrag Tokić
  */
 class Cerberus_Hasher_BonafideTest extends PHPUnit_Framework_TestCase {
 

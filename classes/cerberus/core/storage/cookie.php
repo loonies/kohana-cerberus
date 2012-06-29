@@ -6,7 +6,7 @@
  * @package    Cerberus
  * @category   Storage
  * @author     Miodrag Tokić <mtokic@gmail.com>
- * @copyright  (c) 2011, Miodrag Tokić
+ * @copyright  (c) 2011-2012, Miodrag Tokić
  * @license    New BSD License
  */
 class Cerberus_Core_Storage_Cookie implements Cerberus_Storage {
