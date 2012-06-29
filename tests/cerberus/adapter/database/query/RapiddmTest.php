@@ -7,7 +7,7 @@
  *
  * @package    Cerberus
  * @category   Tests
- * @author     Miodrag Tokić
+ * @author     Miodrag Tokić <mtokic@gmail.com>
  * @copyright  (c) 2011-2012, Miodrag Tokić
  */
 class Cerberus_Adapter_Database_Query_RapiddmTest extends PHPUnit_Framework_TestCase {
